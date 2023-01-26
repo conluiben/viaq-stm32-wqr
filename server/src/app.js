@@ -16,4 +16,13 @@ app.get("/status", (req,res) => {
 	})
 });
 
+app.post("/register", (req,res) => {
+	res.send({
+		message: `Hello, ${req.body.email}! You are registered! :)`
+	})
+});
+
+//important: use backticks if containing JS expressions!
+
+
 app.listen(process.env.PORT || 8081);

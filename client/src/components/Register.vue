@@ -10,14 +10,20 @@ defineProps({
 </script>
 
 <template>
-  <div>
-    <h1> Register </h1>
-    <input type="email" v-model="email" name="email" placeholder="Email" />
-    <input type="password" v-model="password" name="password" placeholder="Password" />
-    <br />
-    <div class="error" v-html="error"></div>
-    <button @click="register">Register</button>
-  </div>
+  <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <div class="white elevation-2">
+        <v-toolbar flat dense class="green" dark>
+          <v-toolbar-title>Register</v-toolbar-title>
+        </v-toolbar>
+      </div>
+      <input type="email" v-model="email" name="email" placeholder="Email" />
+      <input type="password" v-model="password" name="password" placeholder="Password" />
+      <br />
+      <div class="error" v-html="error"></div>
+      <button @click="register">Register</button>
+    </v-flex>
+  </v-layout>
 </template>
 
 <style scoped>

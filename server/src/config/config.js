@@ -1,5 +1,5 @@
 module.exports = {
-    port: 8081,
+    port: process.env.PORT || 8081,
     db: {
         database: process.env.DB_NAME || 'tabtracker',
         user: process.env.DB_USER || 'user',
@@ -7,7 +7,8 @@ module.exports = {
         options: {
             dialect: process.env.DIALECT || 'sqlite',
             host: process.env.HOST || 'localhost',
-            storage: './tabtracker.sqlite'
+            storage: './tabtracker.sqlite',
+            port: process.env.PORT || 8081
         }
     },
     authentication: {

@@ -16,8 +16,19 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header> -->
+  <PageHeader />
   <RouterView />
 </template>
+
+<script>
+import PageHeader from '@/components/Header.vue'
+export default {
+  name: 'app',
+  components: {
+    PageHeader
+  }
+}
+</script>
 
 <style scoped>
 

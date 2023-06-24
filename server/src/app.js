@@ -12,7 +12,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-var msg = "";
+// var msg = "";
 
 require('./routes')(app)
 

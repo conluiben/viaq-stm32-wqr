@@ -14,7 +14,7 @@ required: true
   <input type="password" v-model="password" name="password" placeholder="Password" />
   <br />
   <div class="error" v-html="error"></div>
-  <button @click="register">Register</button>
+  <button @click="login">Log in</button>
 </template>
 
 <style scoped>
@@ -33,24 +33,24 @@ export default {
       error: null
     }
   },
-  watch: {
+  watch: { //just for the testing
     email(value) {
       console.log("email:", value)
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.email = "hello_email@yahoo.com"
-    }, 2000);
+    // setTimeout(() => {
+    //   this.email = "hello_email@yahoo.com"
+    // }, 2000);
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        const resp = await AuthenticationService.register({
+        const resp = await AuthenticationService.login({
           email: this.email,
           password: this.password
         });
-        console.log("Clicked the button!");
+        console.log("Clicked the LOGIN button!");
         console.log(resp.data);
       } catch (err) {
         this.error = err.response.data.error;

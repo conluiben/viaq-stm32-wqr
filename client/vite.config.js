@@ -8,7 +8,8 @@ import vue from '@vitejs/plugin-vue'
 //// ? https://github.com/vitejs/vite/discussions/3396
 // ? it must be npm run dev -- --host OR vite --host 
 
-const ASSET_URL = process.env.ASSET_URL || '';
+// const BASE_URL = import.meta.env.BASE_URL || '';
+// ! Careful: cannot access env variables outsice src folder by default! (check online for workaround)
 
 //learned from https://vitejs.dev/config/#conditional-config
 //https://stackoverflow.com/questions/68076527/how-to-set-vite-config-js-base-public-path

@@ -1,8 +1,10 @@
 import axios from "axios"
+// import 'dotenv/config'
+// ! above only works for non-Vite, but Vite uses import.meta.env.*** for environment variable!
 
 export default () => {
     return axios.create({
-        baseURL: process.env.BASE_URL || "http://localhost:8081"
+        baseURL: import.meta.env.VITE_SERVER_URL || "http://localhost:8089"
     })
 }
 

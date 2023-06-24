@@ -1,6 +1,6 @@
 import axios from "axios"
 // import 'dotenv/config'
-// ! above only works for non-Vite, but Vite uses import.meta.env.*** for environment variable!
+// ! above only works for non-Vite (if NOT using vite preview), but Vite uses import.meta.env.*** for environment variable!
 
 export default () => {
     return axios.create({

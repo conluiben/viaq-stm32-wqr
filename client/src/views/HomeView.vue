@@ -1,24 +1,13 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+import OneWarning from '../components/Warning.vue'
 </script>
 
 <template>
   <main>
     <!-- <TheWelcome /> -->
     <h1 id="welcome"> Welcome, user! </h1>
-    <div class="allWarnings">
-      <div class="warning">
-        <div class="warningIcon">
-          <img src="@/assets/danger.png" />
-        </div>
-        <div class="warningText">
-          <h2>Increased temperature detected!</h2>
-          <p>Turn on AC or cooling for a more comfortable room temperature!</p>
-        </div>
-        <div class="warningClose">
-          <img src="@/assets/cross.png" />
-        </div>
-      </div>
+    <div id="allWarnings">
+      <OneWarning v-for="item in count" :key="index"/>
     </div>
     <div class="allSensors">
       <div class="sensorGroup temp">
@@ -31,6 +20,22 @@
         <iframe width="450" height="260" style="border: 1px solid #cccccc;"
           src="https://thingspeak.com/channels/2160851/charts/2?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&title=Humidity&type=line"></iframe>
       </div>
+      <div class="sensorGroup eco2">
+        <h2>eCO2</h2>
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      </div>
+      <div class="sensorGroup tvoc">
+        <h2>TVOC</h2>
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      </div>
+      <div class="sensorGroup accelx">
+        <h2>Acceleration along X</h2>
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      </div>
+      <div class="sensorGroup accely">
+        <h2>Acceleration along Y</h2>
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      </div>
     </div>
   </main>
 </template>
@@ -42,75 +47,6 @@ h1#welcome{
   font-weight: bold;
   text-align: center;
   text-decoration: underline;
-}
-div.warning {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: 0 auto;
-  max-height: 170px;
-  background-color: lightcoral;
-  /* justify-content: space-between; */
-  margin: 10px auto;
-  padding: 20px;
-  gap: 0 20px;
-  color: #222222;
-}
-
-div.warning div.warningIcon {
-  /* background-color: orangered; */
-  width: 15%;
-  max-width: 50px;
-  display: flex;
-  align-items: center;
-  /* padding: 20px; */
-  /* background-color: blue; */
-}
-
-div.warning div.warningIcon img {
-  width: 100%;
-  /* height: 100%; */
-}
-
-div.warning div.warningText {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
-  align-items: flex-start;
-  /* text alignment */
-  justify-content: center;
-  /* vertical align */
-  /* background-color: yellow; */
-}
-
-div.warning div.warningText h2 {
-  font-family: Poppins, sans-serif;
-  line-height: 1.75rem;
-  font-weight: bold;
-  font-size: 1.625rem;
-  margin-bottom: 7px;
-}
-
-div.warning div.warningText p {
-  font-family: Lato, sans-serif;
-  font-size: 1rem;
-  line-height: 1.25rem;
-}
-
-div.warning div.warningClose {
-  /* background-color: orangered; */
-  width: 5%;
-  display: flex;
-  align-items: center;
-  /* padding: 5px; */
-  min-width: 10px;
-  max-width: 15px;
-}
-
-div.warning div.warningClose img {
-  width: 100%;
-  /* height: 10%; */
-  /* min-height: 20px; */
 }
 
 div.allSensors{
@@ -128,5 +64,42 @@ div.allSensors  div.sensorGroup  h2{
 </style>
 
 <script>
+// import AuthenticationService from "@/services/AuthenticationService"
 
+export default {
+  data() {
+    return {
+      count: 2
+    }
+  },
+  mounted() {
+    console.log("Hi");
+    this.getListOfWarnings();
+  },
+  methods: {
+    createWarning(warningHeader = "My warning header", warningContent = "Some content here"){
+      var defaultString = `<div class="warningIcon"><img src="@/assets/danger.png"/></div><div class="warningText"><h2>${warningHeader}</h2><p>${warningContent}</p></div><div class="warningClose"><img src="@/assets/cross.png" @click="closeWarning"/></div>`;
+      var warningDiv = document.createElement("div");
+      warningDiv.classList.add("warning");
+      warningDiv.innerHTML = defaultString;
+      document.getElementById("allWarnings").appendChild(warningDiv);
+    },
+    getListOfWarnings(){
+      /*
+      try {
+        const resp = await AuthenticationService.login({
+          email: this.email,
+          password: this.password
+        });
+        console.log("Clicked the LOGIN button!");
+        console.log(resp.data);
+      } catch (err) {
+        this.error = err.response.data.error;
+      }*/
+      console.log("I run getListOfWarnings from the function!")
+    }
+
+    //tip: try stacking warnings with reference: https://stackoverflow.com/questions/67122576/how-to-add-an-existing-component-to-a-template-onclick-in-vue-js
+  }
+}
 </script>

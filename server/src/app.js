@@ -12,15 +12,24 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
+const { socketConnection } = require('./utils/socket');
+
 // var msg = "";
 
 require('./routes')(app)
+require('dotenv').config() //newly added; not in first-railway project! --- this made process.env.*** work!
 
-//important: use backticks if containing JS expressions!
+//new: attempt to use socket.io
+const server = require('http').createServer(app);
+socketConnection(server);
 
-sequelize.sync()
+// sequelize.sync({force: true}) //temporary force: true as it resets the database!
+sequelize.sync() //temporary force: true as it resets the database!
 	.then(() => {
-		app.listen(process.env.PORT || 8081);
+		// ? socket.io: replace app.listen with server.listen
+		// app.listen(process.env.PORT || 8081);
+		// server.listen(8081);
+		server.listen(process.env.PORT || 8081);
 		console.log(`Server started on port ${config.port}`)
 	})
 

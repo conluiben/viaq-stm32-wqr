@@ -2,29 +2,51 @@
 </script>
 
 <template>
+  <div id="allWarnings">
     <div class="warning">
-        <div class="warningIcon">
-            <img src="@/assets/danger.png" />
-        </div>
-        <div class="warningText">
-            <h2>Increased temperature detected!</h2>
-            <p>Turn on AC or cooling for a more comfortable room temperature!</p>
-        </div>
-        <div class="warningClose">
-            <img src="@/assets/cross.png" @click="closeWarning" />
-        </div>
+      <div class="warningIcon">
+        <img src="@/assets/danger.png" />
+      </div>
+      <div class="warningText">
+        <h2>{{ wHeader }}</h2>
+        <!-- <h2>Increased temperature detected!</h2> -->
+        <p>{{ wText }}</p>
+        <!-- <p>Turn on AC or cooling for a more comfortable room temperature!</p> -->
+      </div>
+      <div class="warningClose">
+        <img src="@/assets/cross.png" @click="closeWarning" />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
+/*
+  props: {
+    wHeader: { required: true, default: "My Header", type: String },
+    wText: { required: true, default: "My warning text", type: String },
+    id: { required: true, type: String },
+  },
+*/
 export default {
-    methods: {
-        closeWarning(e){ //event e
-            console.log("clicked warning:");
-            console.log(e);
-            e.target.closest("div.warning").remove();
-        }
+  props: ["wHeader","wText","id"],
+  data() {
+    return {
+      count: 2,
+      warnings: [
+        {"header": "My sample header","warningText": "For an example, turn on AC or cooling for a more comfortable room temperature!"},
+        {"header": "Increased humidity detected!","warningText": "For another example, turn on AC or cooling for a more comfortable room temperature!"}
+      ]
     }
+  },
+  methods: {
+    closeWarning(e) { //event e
+      console.log("clicked warning:");
+      // console.log(e.target.closest("div.warning").querySelector("h2").innerText);
+      // e.target.closest("div.warning").remove();
+      this.$emit('closeWarning',{"header":e.target.closest("div.warning").querySelector("h2").innerText});
+    }
+  }
 }
 </script>
 
@@ -102,5 +124,4 @@ div.warning div.warningClose img {
 div.warning div.warningClose img:hover {
   cursor: pointer;
 }
-
 </style>

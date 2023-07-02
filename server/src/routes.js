@@ -1,4 +1,5 @@
 const AuthenticationController = require("./controllers/AuthenticationController")
+const SensorController = require("./controllers/SensorController")
 const AuthenticationControllerPolicy = require("./policies/AuthenticationControllerPolicy")
 
 module.exports = (app) => {
@@ -18,4 +19,8 @@ module.exports = (app) => {
     */
     app.post("/register", AuthenticationControllerPolicy.register, AuthenticationController.register);
     app.post("/login", AuthenticationController.login); //no more policy
+
+    app.post("/sensor-update", SensorController.update);
+    app.post("/dashboard-warning", SensorController.listWarnings);
+
 }

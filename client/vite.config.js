@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+// import GlobalsPolyfills from '@esbuild-plugins/node-globals-polyfill'
+
+
 // https://vitejs.dev/config/
 // ? configuring Network hosting with Vite: (see forum for correct vite command)
 //// ? https://github.com/vitejs/vite/discussions/3396
@@ -37,9 +40,29 @@ export default defineConfig({
     }
   }
 })
+
+//tried adding optimizeDeps and resolve coming from here:
+//https://stackoverflow.com/questions/73036803/uncaught-typeerror-https-agent-is-not-a-constructor
 /* removed
-  // base: '/dist/',
-  define: {
-    'process.env': process.env
+  optimizeDeps: {
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
+      },
+      plugins: [
+        GlobalsPolyfills({
+          process: true,
+          buffer: true,
+        }),
+      ],
+    },
+  },
+  resolve: {
+    alias: {
+      stream: 'stream-browserify',
+      https: 'agent-base', 
+      // comment above line and uncomment below line if it doesnot work
+      //     http:'agent-base',
+    },
   },
 */

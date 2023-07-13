@@ -51,21 +51,24 @@ export default {
 </script>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter&family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
 div.warning {
   display: flex;
   flex-direction: row;
   width: 90%;
   margin: 0 auto;
-  max-height: 170px;
+  /* max-height: 170px; */
   background-color: lightcoral;
   /* justify-content: space-between; */
   margin: 10px auto;
   padding: 20px;
   gap: 0 20px;
   color: #222222;
+  font-family: Figtree, sans-serif;
 }
 
-div.warning div.warningIcon {
+div.warning  div.warningIcon {
   /* background-color: orangered; */
   width: 15%;
   max-width: 50px;
@@ -73,6 +76,12 @@ div.warning div.warningIcon {
   align-items: center;
   /* padding: 20px; */
   /* background-color: blue; */
+}
+
+@media screen and (max-width: 480px) {
+  div.warning  div.warningIcon {
+    display: none;
+  }
 }
 
 div.warning div.warningIcon img {
@@ -92,7 +101,7 @@ div.warning div.warningText {
 }
 
 div.warning div.warningText h2 {
-  font-family: Poppins, sans-serif;
+  /* font-family: Poppins, sans-serif; */
   line-height: 1.75rem;
   font-weight: bold;
   font-size: 1.625rem;
@@ -100,7 +109,7 @@ div.warning div.warningText h2 {
 }
 
 div.warning div.warningText p {
-  font-family: Lato, sans-serif;
+  /* font-family: Lato, sans-serif; */
   font-size: 1rem;
   line-height: 1.25rem;
 }

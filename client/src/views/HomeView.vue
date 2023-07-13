@@ -5,38 +5,75 @@ import OneWarning from '../components/Warning.vue'
 <template>
   <main>
     <!-- <TheWelcome /> -->
-    <h1 id="welcome"> Welcome, user! </h1>
+    <h1 id="welcome"> VIAQ Dashboard </h1>
     <div id="allWarnings">
       <!-- <OneWarning v-for="item in count" :key="item"/> -->
       <!-- note: : is shorthand for v-bind -->
       <OneWarning @closeWarning="closeThisWarning" v-for="(warning,idx) in warnings" :wHeader="warning.header" :wText="warning.warningText" :key="idx"/>
     </div>
     <div class="allSensors">
-      <div class="sensorGroup temp">
-        <h2>Temperature</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+      <div class="sensorGroup temp connected">
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>Temperature</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Connected</p>
+          </div>
+        </div>
+        <!-- for all iframes, original attributes: width="450" height="260" -->
+        <iframe style="border: 1px solid #cccccc;"
           src="https://thingspeak.com/channels/2160851/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&round=1&title=Temperature&type=line"></iframe>
       </div>
       <div class="sensorGroup humid">
-        <h2>Humidity</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>Humidity</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Not Connected</p>
+          </div>
+        </div>
+        <iframe style="border: 1px solid #cccccc;"
           src="https://thingspeak.com/channels/2160851/charts/2?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&title=Humidity&type=line"></iframe>
       </div>
       <div class="sensorGroup eco2">
-        <h2>eCO2</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>eCO2</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Not Connected</p>
+          </div>
+        </div>
+        <iframe style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
       </div>
-      <div class="sensorGroup tvoc">
-        <h2>TVOC</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      <div class="sensorGroup tvoc connected">
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>TVOC</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Connected</p>
+          </div>
+        </div>
+        <iframe style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2184702/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
       </div>
-      <div class="sensorGroup accelx">
-        <h2>Acceleration along X</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+      <div class="sensorGroup accelx connected">
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>Acceleration (X)</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Connected</p>
+          </div>
+        </div>
+        <iframe style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
       </div>
       <div class="sensorGroup accely">
-        <h2>Acceleration along Y</h2>
-        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+        <div class="sensorTextRow"> <!-- will contain both header and status -->
+          <h2>Acceleration (Y)</h2>
+          <div class="sensorStatus">
+            <div class="circleStatus"></div>
+            <p class="statusText">Not connected</p>
+          </div>
+        </div>
+        <iframe style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2186840/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
       </div>
     </div>
   </main>
@@ -44,30 +81,104 @@ import OneWarning from '../components/Warning.vue'
 
 <style scoped>
 
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;600;700;800;900&family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
+
 h1#welcome{
   font-size: 2rem;
+  font-family: Bitter, serif;
   font-weight: bold;
   text-align: center;
   text-decoration: underline;
+  margin: 2.75rem auto 0.25rem;
 }
 
 div.allSensors{
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center; /* aligns content horizontally when wrapped */
   gap: 10px;
+  padding: 2.5%;
 }
 
+div.allSensors  div.sensorGroup{
+  width: 45%;
+  max-width: 450px;
+  min-width: 270px;
+  /* background-color: lightgoldenrodyellow; */
+  
+}
+
+div.allSensors  div.sensorGroup  iframe{
+  width: 100%;
+  height: 260px;
+}
+
+/* sensor textrow styling */
 div.allSensors  div.sensorGroup  h2{
   font-weight: bold;
+  font-size: min(1.125rem,calc(0.75rem + 0.75vw));
+  font-family: Bitter, serif;
 }
+
+div.sensorGroup  div.sensorTextRow{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: fit-content;
+  align-items: center;
+  gap: 0 5px;
+  margin-bottom: 3px;
+}
+
+div.sensorGroup  div.sensorStatus{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: fit-content;
+  align-items: center;
+  gap: 0 5px;
+
+  background-color: lightpink;
+  border-radius: 50px;
+  padding: 2px 7px;
+}
+
+div.sensorGroup  div.circleStatus{
+  /* position: relative; */
+  width: 15px;
+  height: 15px;  
+  /* width: calc(100% + 20px);   */
+  aspect-ratio: 1;
+  border-radius: 50%;
+  
+  background-color: crimson;
+}
+
+div.sensorGroup.connected  div.sensorStatus{
+  background-color: palegreen;
+}
+
+div.sensorGroup.connected  div.circleStatus{
+  background-color: forestgreen;
+}
+
+div.sensorStatus  p{
+  text-transform: uppercase;
+  font-family: Figtree, Arial, sans-serif;
+  font-weight: 700;
+  font-size: min(0.875rem,calc(0.5rem + 0.75vw));
+}
+
 
 </style>
 
 <script>
 // import AuthenticationService from "@/services/AuthenticationService"
 import SensorService from "@/services/SensorService"
+import WarningUtils from "@/utils/warningUtils"
 import { io } from "socket.io-client"
 
 export default {
@@ -93,10 +204,10 @@ export default {
     socket.on("connect", () => {
       console.log("Good connection! ID:",socket.id); // x8WIv7-mJelg7on_ALbx
       socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
-      socket.on("hello from server", () => {
+      socket.off("hello from server").on("hello from server", () => {
         console.log("The server wanted to say hi, too!");
       });
-      socket.on("new warning", (data) => {
+      socket.off("new warning").on("new warning", (data) => {
         console.log("The server received a new warning");
         console.log(data);
         this.createWarning(data); //data is an object containing the new warning
@@ -111,24 +222,31 @@ export default {
       var headerText = "";
       var bodyText = "";
       const textLegends = {"temperature":["temperature","°C"],"humidity":["relative humidity","%"]} //format: "parameter": [<text label>, <units>]
-      
-      if(warningObjectData.warning==="threshold_high"){
-        headerText = "Increased ";            
-      } else if (warningObjectData.warning==="threshold_low"){
-        headerText = "Decreased ";
-      } else {
-        headerText = "Caution: ";
-      }
-      headerText += `${textLegends[warningObjectData.parameter][0]} (${warningObjectData.value} ${textLegends[warningObjectData.parameter][1]})`;
+      // const textLegends = WarningUtils.legends;
 
+      // console.log("SensorService:");
+      // console.log(SensorService)
+      // console.log("warningutils:");
+      // console.log(WarningUtils)
+
+      // if(warningObjectData.warning==="threshold_high"){
+      //   headerText = "Increased ";            
+      // } else if (warningObjectData.warning==="threshold_low"){
+      //   headerText = "Decreased ";
+      // } else {
+      //   headerText = "Caution: ";
+      // }
+      // headerText += `${textLegends[warningObjectData.parameter][0]} (${warningObjectData.value} ${textLegends[warningObjectData.parameter][1]})`;
+      headerText = WarningUtils.populateHeader(warningObjectData.warning,warningObjectData.parameter,warningObjectData.value);
       //body text, set warning per PARAMETER
-      if(warningObjectData.parameter==="temperature"){
-        bodyText = "Try turning on the AC or a cooling method for a more comfortable room temperature!";
-      } else if (warningObjectData.parameter==="humidity") { //TODO: add for gas sensor, accelerometer, etc.
-        bodyText = "The air feels heavy! Try turning on the AC for more comfort...";
-      } else { //TODO: add for gas sensor, accelerometer, etc.
-        bodyText = "Check this carefully! Ensure that the environment is safe...";
-      }
+      // if(warningObjectData.parameter==="temperature"){
+      //   bodyText = "Try turning on the AC or a cooling method for a more comfortable room temperature!";
+      // } else if (warningObjectData.parameter==="humidity") { //TODO: add for gas sensor, accelerometer, etc.
+      //   bodyText = "The air feels heavy! Try turning on the AC for more comfort...";
+      // } else { //TODO: add for gas sensor, accelerometer, etc.
+      //   bodyText = "Check this carefully! Ensure that the environment is safe...";
+      // }
+      bodyText = WarningUtils.populateBody(warningObjectData.warning,warningObjectData.parameter,warningObjectData.value);
       this.warnings.push({"header": headerText,"warningText": bodyText});
       
       /* var defaultString = `<div class="warningIcon"><img src="@/assets/danger.png"/></div><div class="warningText"><h2>${warningHeader}</h2><p>${warningContent}</p></div><div class="warningClose"><img src="@/assets/cross.png" @click="closeWarning"/></div>`;
